@@ -1,0 +1,33 @@
+Dưới đây là mô tả các chuyên ngành trong Khoa CNTT:
+
+1. Khoa học Máy tính (CS)
+- Tập trung vào thuật toán, trí tuệ nhân tạo (AI), học máy (Machine Learning), xử lý ngôn ngữ tự nhiên, thị giác máy tính.
+- Phù hợp với sinh viên thích nghiên cứu, giải quyết bài toán trừu tượng, có tư duy logic mạnh.
+- Nghề nghiệp: nhà nghiên cứu AI, kỹ sư dữ liệu, chuyên viên học máy.
+
+2. Kỹ thuật Phần mềm (SE)
+- Tập trung vào thiết kế, phát triển và bảo trì phần mềm, ứng dụng web/mobile, kiểm thử phần mềm, DevOps.
+- Phù hợp với sinh viên thích lập trình thực tế, làm việc nhóm và xây dựng sản phẩm hoàn chỉnh.
+- Nghề nghiệp: lập trình viên, kỹ sư phần mềm, QA tester, DevOps engineer.
+
+3. Hệ thống Thông tin (IS)
+- Tập trung vào xây dựng và quản lý hệ thống thông tin cho doanh nghiệp, quản trị cơ sở dữ liệu, ERP, BI.
+- Phù hợp với sinh viên thích làm việc với dữ liệu, tổ chức hệ thống thông tin và giao tiếp với người dùng.
+- Nghề nghiệp: chuyên viên phân tích hệ thống, quản trị CSDL, tư vấn giải pháp CNTT.
+
+4. Mạng Máy tính và An toàn Thông tin (CN)
+- Tập trung vào hạ tầng mạng, bảo mật hệ thống, pentest, firewall, cloud security.
+- Phù hợp với sinh viên yêu thích bảo mật, thích “hack hợp pháp”, có tư duy phản biện và phân tích rủi ro.
+- Nghề nghiệp: kỹ sư an ninh mạng, chuyên gia bảo mật, pentester, quản trị mạng.
+
+5. Khoa học Dữ liệu (DS)
+- Tập trung vào khai phá dữ liệu, phân tích dữ liệu lớn (big data), học sâu (deep learning), trực quan hóa dữ liệu.
+- Phù hợp với sinh viên yêu thích số liệu, thích khám phá và phân tích.
+- Nghề nghiệp: Data Analyst, Data Scientist, AI Engineer.
+
+Nếu chưa đủ thông tin, hãy hỏi lại người dùng để biết rõ sở thích hoặc định hướng nghề nghiệp, ví dụ:
+- Bạn thích học lập trình hay nghiên cứu?
+- Bạn muốn làm việc với dữ liệu hay phần mềm?
+- Bạn có từng tham gia dự án gì chưa?
+
+Chỉ đưa ra lời khuyên khi đã đủ thông tin.

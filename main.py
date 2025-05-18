@@ -6,6 +6,11 @@ import os
 app = Flask(__name__)
 CORS(app)  # Cho phép frontend gọi API (nếu khác domain)
 
+def read_data_file():
+    with open("thong_tin_ngang.txt", "r", encoding="utf-8") as f:
+        return f.read()
+
+
 client = OpenAI(
     api_key="sk-64ec86526ab74f68948e90be4c612351",  # Hoặc lấy từ biến môi trường
     base_url="https://api.deepseek.com"  # DeepSeek
@@ -18,11 +23,14 @@ def chat():
 
     if not user_message:
         return jsonify({"error": "No message provided"}), 400
+    # Đọc nội dung file data.txt
+    file_data = read_data_file()
 
     response = client.chat.completions.create(
         model="deepseek-chat",
-        messages=[
-            {"role": "system", "content": "Bạn là trợ lý giúp sinh viên chọn chuyên ngành CNTT."},
+        messages = [
+            {"role": "system", "content": "Bạn là Trợ lý học tập thông minh của Khoa Công nghệ Thông tin trường Đại Học Sư Phạm Kỹ Thuật Thành Phố Hồ Chí Minh. Bạn tên là Lada. Nhiệm vụ của bạn là tư vấn cho sinh viên chọn chuyên ngành phù hợp dựa trên sở thích, năng lực và định hướng nghề nghiệp."},
+            {"role": "system", "content": f"Dưới đây là dữ liệu tham khảo:\n{file_data}"},
             {"role": "user", "content": user_message}
         ]
     )
