@@ -7,7 +7,7 @@ app = Flask(__name__)
 CORS(app)  # Cho phép frontend gọi API (nếu khác domain)
 
 def read_data_file():
-    with open("thong_tin_ngang.txt", "r", encoding="utf-8") as f:
+    with open("thong_tin_nganh.txt", "r", encoding="utf-8") as f:
         return f.read()
 
 
