@@ -5,7 +5,9 @@ import os
 
 app = Flask(__name__)
 app.secret_key = "4f8d6c5372bce38a65f741a23854eb36b697efcfe5dfc275e0f7a764a2eae01e"
-CORS(app)  # Cho phép frontend gọi API (nếu khác domain)
+# CORS(app)  # Cho phép frontend gọi API (nếu khác domain)
+CORS(app, supports_credentials=True, origins=["http://localhost:8080"])
+
 
 def read_data_file():
     with open("thong_tin_nganh.txt", "r", encoding="utf-8") as f:
