@@ -29,7 +29,6 @@ def chat():
     response = client.chat.completions.create(
         model="deepseek-chat",
         messages = [
-            {"role": "system", "content": "Bạn là Trợ lý học tập thông minh của Khoa Công nghệ Thông tin trường Đại Học Sư Phạm Kỹ Thuật Thành Phố Hồ Chí Minh. Bạn tên là Lada. Nhiệm vụ của bạn là tư vấn cho sinh viên chọn chuyên ngành phù hợp dựa trên sở thích, năng lực và định hướng nghề nghiệp."},
             {"role": "system", "content": f"Dưới đây là dữ liệu tham khảo:\n{file_data}"},
             {"role": "user", "content": user_message}
         ]
