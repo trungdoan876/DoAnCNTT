@@ -37,7 +37,7 @@ def chat():
         return jsonify({"error": "No message provided"}), 400
     # Đọc nội dung file data.txt
     file_data = read_data_file()
-    print("Session hiện tại:", dict(session))
+    # print("Session hiện tại:", dict(session))
     # # Lấy profile từ session
     # profile = session.get("profile", {})
     # name = profile.get("name", "Người dùng")
