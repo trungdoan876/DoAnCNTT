@@ -19,14 +19,14 @@ client = OpenAI(
     base_url="https://api.deepseek.com"  # DeepSeek
 )
 
-@app.route("/set_thong_tin_user", methods=["POST"])
-def set_profile():
-    data = request.get_json()
-    session['profile'] = {
-        "name": data.get("name"),
-        "email": data.get("email")
-    }
-    return jsonify({"message": "Profile saved in session"})
+# @app.route("/set_thong_tin_user", methods=["POST"])
+# def set_profile():
+#     data = request.get_json()
+#     session['profile'] = {
+#         "name": data.get("name"),
+#         "email": data.get("email")
+#     }
+#     return jsonify({"message": "Profile saved in session"})
 
 @app.route("/chat", methods=["POST"])
 def chat():
