@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, session
 from flask_cors import CORS
 from openai import OpenAI
 import os
@@ -16,6 +16,15 @@ client = OpenAI(
     base_url="https://api.deepseek.com"  # DeepSeek
 )
 
+@app.route("/set_thong_tin_user", methods=["POST"])
+def set_profile():
+    data = request.get_json()
+    session['profile'] = {
+        "name": data.get("name"),
+        "email": data.get("email")
+    }
+    return jsonify({"message": "Profile saved in session"})
+
 @app.route("/chat", methods=["POST"])
 def chat():
     data = request.get_json()
@@ -26,10 +35,20 @@ def chat():
     # Đọc nội dung file data.txt
     file_data = read_data_file()
 
+    # Lấy profile từ session
+    profile = session.get("profile", {})
+    name = profile.get("name", "Người dùng")
+    email = profile.get("email", "email")
+
+    # Ví dụ dùng name + sở thích để cá nhân hoá prompt
+    personal_info = f"Tên của người dùng là {name}. " \
+                    f"Email: {email}."
+
     response = client.chat.completions.create(
         model="deepseek-chat",
         messages = [
             {"role": "system", "content": f"Dưới đây là dữ liệu tham khảo:\n{file_data}"},
+            {"role": "system", "content": f"Thông tin người dùng: \n{personal_info}"},
             {"role": "user", "content": user_message}
         ]
     )
