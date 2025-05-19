@@ -37,21 +37,21 @@ def chat():
         return jsonify({"error": "No message provided"}), 400
     # Đọc nội dung file data.txt
     file_data = read_data_file()
+    print("Session hiện tại:", dict(session))
+    # # Lấy profile từ session
+    # profile = session.get("profile", {})
+    # name = profile.get("name", "Người dùng")
+    # email = profile.get("email", "email")
 
-    # Lấy profile từ session
-    profile = session.get("profile", {})
-    name = profile.get("name", "Người dùng")
-    email = profile.get("email", "email")
-
-    # Ví dụ dùng name + sở thích để cá nhân hoá prompt
-    personal_info = f"Tên của người dùng là {name}. " \
-                    f"Email: {email}."
+    # # Ví dụ dùng name + sở thích để cá nhân hoá prompt
+    # personal_info = f"Tên của người dùng là {name}. " \
+    #                 f"Email: {email}."
 
     response = client.chat.completions.create(
         model="deepseek-chat",
         messages = [
             {"role": "system", "content": f"Dưới đây là dữ liệu tham khảo:\n{file_data}"},
-            {"role": "system", "content": f"Thông tin người dùng: \n{personal_info}"},
+            # {"role": "system", "content": f"Thông tin người dùng: \n{personal_info}"},
             {"role": "user", "content": user_message}
         ]
     )
