@@ -68,5 +68,21 @@ def chat():
 
     return jsonify({"reply": bot_message})
 
+#new đoạn chat mới -> xóa lịch sử
+@app.route("/reset", methods=["POST"])
+def reset_history():
+    data = request.get_json()
+    user_email = data.get("email")
+
+    if not user_email:
+        return jsonify({"error": "No email provided"}), 400
+
+    if user_email in user_chat_histories:
+        del user_chat_histories[user_email]
+        return jsonify({"message": "Lịch sử chat đã được đặt lại."})
+    else:
+        return jsonify({"message": "Không tìm thấy lịch sử chat để đặt lại."})
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
