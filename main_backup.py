@@ -18,24 +18,39 @@ client = OpenAI(
     base_url="https://api.deepseek.com"  # DeepSeek
 )
 
+# @app.route("/set_thong_tin_user", methods=["POST"])
+# def set_profile():
+#     data = request.get_json()
+#     session['profile'] = {
+#         "name": data.get("name"),
+#         "email": data.get("email")
+#     }
+#     return jsonify({"message": "Profile saved in session"})
+
 @app.route("/chat", methods=["POST"])
 def chat():
     data = request.get_json()
     user_message = data.get("message")
-    user_name = data.get("name")    # Lấy thêm name
-    user_email = data.get("email")  # Lấy thêm email
-    personal_info = f"Tên: {user_name}\nEmail: {user_email}" if user_name and user_email else "Không có thông tin người dùng"
-
 
     if not user_message:
         return jsonify({"error": "No message provided"}), 400
+    # Đọc nội dung file data.txt
     file_data = read_data_file()
+    # print("Session hiện tại:", dict(session))
+    # # Lấy profile từ session
+    # profile = session.get("profile", {})
+    # name = profile.get("name", "Người dùng")
+    # email = profile.get("email", "email")
+
+    # # Ví dụ dùng name + sở thích để cá nhân hoá prompt
+    # personal_info = f"Tên của người dùng là {name}. " \
+    #                 f"Email: {email}."
 
     response = client.chat.completions.create(
         model="deepseek-chat",
         messages = [
             {"role": "system", "content": f"Dưới đây là dữ liệu tham khảo:\n{file_data}"},
-            {"role": "system", "content": f"Thông tin người dùng: \n{personal_info}"},
+            # {"role": "system", "content": f"Thông tin người dùng: \n{personal_info}"},
             {"role": "user", "content": user_message}
         ]
     )
