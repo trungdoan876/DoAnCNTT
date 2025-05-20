@@ -7,17 +7,19 @@ app = Flask(__name__)
 app.secret_key = os.urandom(24)
 CORS(app, supports_credentials=True)
 
+# khởi tạo một dictionary để lưu lịch sử chat 
 user_chat_histories = {}
 
 def read_data_file():
     with open("thong_tin_nganh.txt", "r", encoding="utf-8") as f:
         return f.read()
-
+    
+# kết nối tới deepseek
 client = OpenAI(
     api_key="sk-64ec86526ab74f68948e90be4c612351",
     base_url="https://api.deepseek.com"
 )
-
+#API /chat: Gửi câu hỏi và nhận phản hồi
 @app.route("/chat", methods=["POST"])
 def chat():
     data = request.get_json()
@@ -34,8 +36,11 @@ def chat():
         return jsonify({"error": "No message provided"}), 400
 
     file_data = read_data_file()
+    #tạo và kiểm tra lịch sử người dùng
+    # user_email tồn tại trong user_chat_histories -> trả về danh sách lịch sử chat tương ứng.
     history = user_chat_histories.get(user_email, [])
 
+    # nếu lịch sử chưa có, dữ liệu sẽ được đưa vào mới
     if not history:
         history = []
         history.append({
@@ -57,6 +62,7 @@ def chat():
     history = base_messages + chat_messages
     history.append({"role": "user", "content": user_message})
 
+    #xử lý câu hỏi từ người dùng
     response = client.chat.completions.create(
         model="deepseek-chat",
         messages=history
