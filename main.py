@@ -4,9 +4,10 @@ from openai import OpenAI
 import os
 
 app = Flask(__name__)
-# app.secret_key = "4f8d6c5372bce38a65f741a23854eb36b697efcfe5dfc275e0f7a764a2eae01e"
-CORS(app)  # Cho phép frontend gọi API (nếu khác domain)
+app.secret_key = os.urandom(24)  # Hoặc dùng một chuỗi bí mật cố định
+CORS(app, supports_credentials=True)  # Cho phép dùng session từ frontend
 
+user_chat_histories = {}
 
 def read_data_file():
     with open("thong_tin_nganh.txt", "r", encoding="utf-8") as f:
@@ -31,16 +32,35 @@ def chat():
         return jsonify({"error": "No message provided"}), 400
     file_data = read_data_file()
 
+    history = user_chat_histories.get(user_email, [])
+
+if not history:
+    history = []
+    history.append({"role": "system", "content": f"Dưới đây là dữ liệu tham khảo:\n{file_data}"})
+    history.append({"role": "system", "content": f"Thông tin người dùng:\n{personal_info}"})
+
+# Sau đó mới cắt:
+MAX_HISTORY_LENGTH = 20
+base_messages = history[:2]  # giữ lại 2 dòng đầu: dữ liệu + info người dùng
+chat_messages = history[2:]
+
+if len(chat_messages) > MAX_HISTORY_LENGTH:
+    chat_messages = chat_messages[-MAX_HISTORY_LENGTH:]
+
+history = base_messages + chat_messages
+
+    # Thêm câu hỏi người dùng
+    history.append({"role": "user", "content": user_message})
+
     response = client.chat.completions.create(
         model="deepseek-chat",
-        messages = [
-            {"role": "system", "content": f"Dưới đây là dữ liệu tham khảo:\n{file_data}"},
-            {"role": "system", "content": f"Thông tin người dùng: \n{personal_info}"},
-            {"role": "user", "content": user_message}
-        ]
+        messages=history
     )
 
     bot_message = response.choices[0].message.content
+    history.append({"role": "assistant", "content": bot_message})
+    # Lưu lại
+    user_chat_histories[user_email] = history
     return jsonify({"reply": bot_message})
 
 if __name__ == "__main__":
